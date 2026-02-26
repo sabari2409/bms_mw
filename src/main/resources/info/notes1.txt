@@ -1,0 +1,40 @@
+Minimum REQUIRED set for a Spring Boot 4.0.2 microservice
+=============================================================
+
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>com.h2database</groupId>
+        <artifactId>h2</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+</dependencies>
+
+
+==================
+
+Exception -->org.hibernate.TransientPropertyValueException: Persistent instance of 'com.scaler.bms.entity.ShowSeat' references an unsaved transient instance of 'com.scaler.bms.entity.ShowSeatLock' (persist the transient instance before flushing) [com.scaler.bms.entity.ShowSeat.showSeatLock -> com.scaler.bms.entity.ShowSeatLock]
+
+
+Exception -->could not execute statement [ERROR: new row for relation "show_seat" violates check constraint "show_seat_seat_status_check"
+  Detail: Failing row contains (1, 9, 2, 1, 2026-02-23 11:39:31.988074, 2026-02-26 11:54:14.03102, 1, 1).] [update show_seat set created_at=?,seat_id=?,seat_status=?,lock_id=?,show_id=?,updated_at=?,user_id=? where id=?]; SQL [update show_seat set created_at=?,seat_id=?,seat_status=?,lock_id=?,show_id=?,updated_at=?,user_id=? where id=?]; constraint [show_seat_seat_status_check]
+
+
+payment:
+=========
+upi/netbanking/creditcard
+

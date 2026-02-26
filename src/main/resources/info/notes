@@ -1,0 +1,29 @@
+# Technical Features/Concepts used in BMS
+
+1. Used Interface projection (MoviesShowResponseProjection) and constructor projection.
+2. Used native query in MoviesRepository interface
+3. Global Exception Handler
+4. Enums with custom code names - Need to handle for DB Insertion
+5. Created ContextMapper interface for generic mapper.
+6. Implemented interface projection for findMoviesByLanguage in movies repo and services layer.
+7. Avoided @autowired field annotation and used construtor injection.
+8. Understand usage of sealed interface.
+9. CacaseType.ALL and other cascade usage
+
+JPA information:
+-----------------
+Rules:
+-------
+1. When you are updating or inserting parent row, child row needs to be inserted first and then only parent row should be inserted. else you will be getting below error:
+
+Exception -->org.hibernate.TransientPropertyValueException: Persistent instance of 'com.scaler.bms.entity.ShowSeat'
+references an unsaved transient instance of 'com.scaler.bms.entity.ShowSeatLock' (persist the transient instance before flushing)
+[com.scaler.bms.entity.ShowSeat.showSeatLock -> com.scaler.bms.entity.ShowSeatLock]
+
+To have 2 approaches to avoid this:
+
+1. First save the child and then parent entity using "SAVE" method.
+2. Use @Transactional annotation, fetch the details by Id and just use .set<FieldName>.
+Now hibernate will automatically do it. Also apply CASCADE.ALL in the entity.
+
+Without @Transactional if we try to fetch by id and set the value, it won't be updated in DB table.

@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: bms
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bms
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update                           # create / update / validate / none
+    show-sql: true                               # print SQL to console
+    properties:
+      hibernate:
+        format_sql: true                         # nicely format SQL
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
