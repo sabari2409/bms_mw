@@ -73,6 +73,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
+    @ExceptionHandler(InvalidTicketException.class)
+    public ResponseEntity<ErrorResponseDTO> handleTicketError(InvalidTicketException ex) {
+        ErrorResponseDTO errorResponse = GlobalExceptionHandler.getErrorResponseObj();
+        errorResponse.setStatus(HttpStatus.NOT_FOUND);
+        errorResponse.setDateTime(LocalDateTime.now());
+        errorResponse.setName(ex.getMessage());
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
+
 
     private static ErrorResponseDTO getErrorResponseObj() {
         return new ErrorResponseDTO();

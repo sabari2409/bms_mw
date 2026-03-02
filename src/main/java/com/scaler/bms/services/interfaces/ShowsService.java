@@ -1,5 +1,6 @@
 package com.scaler.bms.services.interfaces;
 
+import com.scaler.bms.entity.Shows;
 import com.scaler.bms.projections.MovieShowResponseProjection;
 import com.scaler.bms.dto.MoviesResDTO;
 
@@ -10,4 +11,6 @@ public interface ShowsService {
     List<MovieShowResponseProjection> findAllShowsByMovieId(Integer movieId);
 
     MoviesResDTO findMovieById(Integer movieId);
+
+    Shows findShowsById(Integer showId);
 }

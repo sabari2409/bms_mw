@@ -5,9 +5,11 @@ import com.scaler.bms.exception.InvalidShowSeatLockException;
 import com.scaler.bms.projections.ShowSeatLockProjection;
 import com.scaler.bms.repository.ShowSeatLockRepository;
 import com.scaler.bms.services.interfaces.ShowSeatLockService;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class ShowSeatLockServiceImpl implements ShowSeatLockService {
 
     private final ShowSeatLockRepository showSeatLockRepository;

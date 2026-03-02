@@ -12,4 +12,5 @@ public class LockSeatResDTO {
     private String lockId;
     private LocalDateTime lockCreatedDate;
     private Long totalPrice;
+    private TicketDetailsDTO ticketResDTO;
 }

@@ -1,5 +1,6 @@
 package com.scaler.bms.services.impl;
 
+import com.scaler.bms.entity.Shows;
 import com.scaler.bms.projections.MovieShowResponseProjection;
 import com.scaler.bms.dto.MoviesResDTO;
 import com.scaler.bms.exception.InvalidMovieException;
@@ -55,5 +56,19 @@ public class ShowsServiceImpl implements ShowsService {
             throw new InvalidMovieException("Movie not exist");
         }
         return movie;
+    }
+
+
+    /**
+     * findShowsById
+     * @param showId
+     * @return
+     */
+    @Override
+    public Shows findShowsById(Integer showId) {
+        if (showId == null) {
+            throw new InvalidShowsException("Invalid Show");
+        }
+        return this.showsRepository.findById(showId).orElseThrow(() -> new InvalidShowsException("Selected Show not available"));
     }
 }

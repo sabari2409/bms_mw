@@ -22,7 +22,7 @@ public class PaymentServiceImpl implements PaymentService {
 
 
     @Override
-    public Boolean validate(BasePaymentReqDTO req, IPayment payment) {
+    public Boolean validateSeatExpiry(BasePaymentReqDTO req, IPayment payment) {
 
         // step 1: validate the payment status
         if (payment == null) {

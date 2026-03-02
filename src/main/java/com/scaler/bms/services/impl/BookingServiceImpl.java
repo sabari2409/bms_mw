@@ -2,20 +2,13 @@ package com.scaler.bms.services.impl;
 
 import com.scaler.bms.constants.LockStatus;
 import com.scaler.bms.constants.SeatStatus;
-import com.scaler.bms.dto.BookingReqDTO;
-import com.scaler.bms.dto.LockSeatResDTO;
-import com.scaler.bms.dto.TicketReqDTO;
-import com.scaler.bms.dto.TicketSaveDTO;
-import com.scaler.bms.entity.ShowSeat;
-import com.scaler.bms.entity.ShowSeatLock;
-import com.scaler.bms.entity.Users;
+import com.scaler.bms.constants.TicketStatus;
+import com.scaler.bms.dto.*;
+import com.scaler.bms.entity.*;
 import com.scaler.bms.exception.InvalidBookingException;
 import com.scaler.bms.exception.InvalidUserException;
 import com.scaler.bms.projections.BookingProjection;
-import com.scaler.bms.services.interfaces.BookingService;
-import com.scaler.bms.services.interfaces.ShowSeatService;
-import com.scaler.bms.services.interfaces.TicketService;
-import com.scaler.bms.services.interfaces.UserService;
+import com.scaler.bms.services.interfaces.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,14 +24,21 @@ public class BookingServiceImpl implements BookingService {
     //    private final TicketService ticketService;
     private final ShowSeatService showSeatService;
     private final UserService userService;
+    private final TicketService ticketService;
+    private final ShowsService showsService;
+    private final TicketSeatService ticketSeatService;
 
     public BookingServiceImpl(
-//            TicketService tr,
             ShowSeatService ss,
-            UserService us) {
-//        this.ticketService = tr;
+            UserService us,
+            TicketService ts,
+            ShowsService showsService,
+            TicketSeatService tss) {
         this.showSeatService = ss;
         this.userService = us;
+        this.ticketService = ts;
+        this.showsService = showsService;
+        this.ticketSeatService = tss;
     }
 
     @Override
@@ -116,16 +116,42 @@ public class BookingServiceImpl implements BookingService {
         System.out.println("Total price = " + totalPrice);
         System.out.println("LockId -->" + lockId);
 
+
+        // Step 10: Add details in Ticket entity
+
+        // Step 10.1 get the show by showId
+        Shows show = this.showsService.findShowsById(showId);
+        // Step 10.2 Add the ticket details in ticket DTO and do save
+        TicketReqDTO ticketReqDTO = new TicketReqDTO();
+        ticketReqDTO.setShows(show);
+        ticketReqDTO.setTicketStatus(TicketStatus.INIT);
+        ticketReqDTO.setUsers(userDetails);
+        ticketReqDTO.setPrice(totalPrice);
+        ticketReqDTO.setCreatedAt(LocalDateTime.now());
+        ticketReqDTO.setUpdatedAt(LocalDateTime.now());
+        ticketReqDTO.setTicketNo(Math.random());
+
+        // Step 10.3 update the seat details for the ticket in TicketSeat Entity
+        Ticket ticket = this.ticketService.updateTicketDetails(ticketReqDTO);
+
+        TicketSeatReqDTO ticketSeatDTO = new TicketSeatReqDTO();
+        ticketSeatDTO.setTicket(ticket);
+        ticketSeatDTO.setShowSeatList(validShowsList);
+
+        TicketSeat ticketSeat = this.ticketSeatService.save(ticketSeatDTO);
+        System.out.println("TicketSeat Entry details -===>" + ticketSeat);
+        TicketDetailsDTO ticketDetailsDTO = new TicketDetailsDTO();
+        ticketDetailsDTO.setTicketNo(ticket.getTicketNo());
+        ticketDetailsDTO.setPrice(ticket.getPrice());
+        ticketDetailsDTO.setCreatedDate(ticket.getCreatedAt());
+
         // Step 9: update the records in ShowSeatLockEntity
         LockSeatResDTO lockSeatResDTO = new LockSeatResDTO();
         lockSeatResDTO.setLockId(lockId);
         lockSeatResDTO.setLockCreatedDate(LocalDateTime.now());
         lockSeatResDTO.setTotalPrice(totalPrice);
 
-
-        // Step 10: Add details in Ticket entity
-        TicketSaveDTO ticketSaveDTO = new TicketSaveDTO();
-        
+        lockSeatResDTO.setTicketResDTO(ticketDetailsDTO);
 
         return lockSeatResDTO;
     }

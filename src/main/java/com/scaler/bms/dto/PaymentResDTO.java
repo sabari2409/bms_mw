@@ -9,4 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PaymentResDTO {
+
+    private TicketDetailsDTO ticketDetailsDTO;
 }

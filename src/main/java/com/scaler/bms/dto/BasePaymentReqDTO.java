@@ -1,5 +1,6 @@
 package com.scaler.bms.dto;
 
+import com.scaler.bms.constants.PaymentType;
 import lombok.Getter;
 
 @Getter

@@ -27,3 +27,22 @@ To have 2 approaches to avoid this:
 Now hibernate will automatically do it. Also apply CASCADE.ALL in the entity.
 
 Without @Transactional if we try to fetch by id and set the value, it won't be updated in DB table.
+
+
+Payment Processing:
+------------------
+1. blockSeats: --> Bookings Controller
+=====================
+    1. After seat selected and move to payment page, we need to update records in TICKET entity with INIT.
+    2. We need to update the TICKET_SEAT entity to show the tickets
+
+2. validate -> Payment Controller (ACTION WILL BE DONE DURING PAY BUTTON CLICK FROM UI)
+---------------------------------------------------------------------------------------------
+    1. (consider UPI) - Validate UPI Format
+    2. Validate UPI Banks and return validation success to UI.
+
+ 3. process - Payment Controller
+    1. Create our own entries - PAYMENT IN-PROGRESS in payment table entry (Single entry). We only update the status here.
+    2. Create multiple entries in transaction table like INIT, AUTH_STARTED, AUTH_IN_PROGRESS, AUTH_COMPLETED,MINIMUM_BALANCE_VALIDATION_SUCCESS,UPI_TRANSACTION_SUCCESS.
+    3. IF TRANSACTION_SUCCESS - UPDATE PAYMENT STATUS AND TICKET STATUS AS BOOKED.
+    4. RETURN ALL THE DETAILS TO UI
