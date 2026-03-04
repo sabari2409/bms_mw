@@ -138,8 +138,8 @@ public class BookingServiceImpl implements BookingService {
         ticketSeatDTO.setTicket(ticket);
         ticketSeatDTO.setShowSeatList(validShowsList);
 
-        TicketSeat ticketSeat = this.ticketSeatService.save(ticketSeatDTO);
-        System.out.println("TicketSeat Entry details -===>" + ticketSeat);
+        List<TicketSeat> ticketSeatList = this.ticketSeatService.save(ticketSeatDTO);
+        System.out.println("TicketSeat Entry details -===>" + ticketSeatList);
         TicketDetailsDTO ticketDetailsDTO = new TicketDetailsDTO();
         ticketDetailsDTO.setTicketNo(ticket.getTicketNo());
         ticketDetailsDTO.setPrice(ticket.getPrice());

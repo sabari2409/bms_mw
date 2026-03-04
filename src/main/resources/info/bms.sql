@@ -6,7 +6,9 @@ select * from public.movies;
 select * from public.shows;
 select * from public.show_seat;
 select * from public.payment;
+select * from public.transaction;
 select * from public.ticket;
+select * from public.ticket_seat;
 
 -- truncate table public.city;
 -- truncate table public.theatre;

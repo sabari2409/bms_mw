@@ -11,15 +11,15 @@ import java.util.Map;
 @Component
 public class PaymentFactory {
 
-    private final Map<String, IPayment<BasePaymentReqDTO>> paymentStrategy;
+    private final Map<String, IPayment<?>> paymentStrategy;
 
-    public PaymentFactory(Map<String, IPayment<BasePaymentReqDTO>> st) {
+    public PaymentFactory(Map<String, IPayment<?>> st) {
         this.paymentStrategy = st;
     }
 
 
-    public IPayment<BasePaymentReqDTO> getPaymentStrategy(String paymentType) {
-        IPayment<BasePaymentReqDTO> payment = this.paymentStrategy.get(paymentType);
+    public IPayment<?> getPaymentStrategy(String paymentType) {
+        IPayment<?> payment = this.paymentStrategy.get(paymentType);
         if (payment == null) {
             throw new InvalidPaymentException("Invalid payment Type");
         }

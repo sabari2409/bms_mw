@@ -7,12 +7,13 @@ public class TicketMapper implements ContextMapper<TicketReqDTO, Ticket> {
     @Override
     public Ticket toEntity(TicketReqDTO dto) {
         Ticket ticket = new Ticket();
-        ticket.setShow(dto.getShows());
+        ticket.setShows(dto.getShows());
         ticket.setTicketStatus(dto.getTicketStatus());
         ticket.setPrice(dto.getPrice());
-        ticket.setUser(dto.getUsers());
+        ticket.setUsers(dto.getUsers());
         ticket.setCreatedAt(dto.getCreatedAt());
         ticket.setUpdatedAt(dto.getUpdatedAt());
+        ticket.setTicketNo(dto.getTicketNo());
         return ticket;
     }
 
