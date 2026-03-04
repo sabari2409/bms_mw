@@ -46,3 +46,11 @@ Payment Processing:
     2. Create multiple entries in transaction table like INIT, AUTH_STARTED, AUTH_IN_PROGRESS, AUTH_COMPLETED,MINIMUM_BALANCE_VALIDATION_SUCCESS,UPI_TRANSACTION_SUCCESS.
     3. IF TRANSACTION_SUCCESS - UPDATE PAYMENT STATUS AND TICKET STATUS AS BOOKED.
     4. RETURN ALL THE DETAILS TO UI
+
+
+
+  March 4th TODO
+  ----------------
+  in bookings api ticketReqDTO coming as empty json. Need to validate
+  Need to validate no duplicate entries in show_seat, payments, transaction table.
+  Transaction and payment table should check ticket is available or locked for proceeding payment.
