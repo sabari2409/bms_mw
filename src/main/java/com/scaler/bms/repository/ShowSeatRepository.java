@@ -16,7 +16,7 @@ import java.util.Optional;
 public interface ShowSeatRepository extends JpaRepository<ShowSeat, Integer> {
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("select s from ShowSeat s where s.id IN :ids")
+    @Query(value = "select s from ShowSeat s where s.id IN :ids", nativeQuery = true)
     List<ShowSeat> findShowSeatsByIds(@Param("ids") List<Integer> ids);
 
 }

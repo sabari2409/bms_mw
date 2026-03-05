@@ -3,5 +3,6 @@ package com.scaler.bms.constants;
 public enum TicketStatus {
     INIT,
     BOOKED,
-    CANCELLED
+    CANCELLED,
+    IN_PROGRESS
 }

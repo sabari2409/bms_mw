@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,4 +15,5 @@ public class TicketDetailsDTO {
     private Double ticketNo;
     private Long price;
     private LocalDateTime createdDate;
+    private List<String> setSeatDetails;
 }

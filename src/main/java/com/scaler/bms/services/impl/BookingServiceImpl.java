@@ -140,10 +140,16 @@ public class BookingServiceImpl implements BookingService {
 
         List<TicketSeat> ticketSeatList = this.ticketSeatService.save(ticketSeatDTO);
         System.out.println("TicketSeat Entry details -===>" + ticketSeatList);
+        List<String> selectedSeats = showSeatProjectionList
+                .stream()
+                .filter((s) -> s.getSeatStatus().equals(SeatStatus.AVAILABLE))
+                .map((s) -> s.getSeat().getSeatNo())
+                .toList();
         TicketDetailsDTO ticketDetailsDTO = new TicketDetailsDTO();
         ticketDetailsDTO.setTicketNo(ticket.getTicketNo());
         ticketDetailsDTO.setPrice(ticket.getPrice());
         ticketDetailsDTO.setCreatedDate(ticket.getCreatedAt());
+        ticketDetailsDTO.setSetSeatDetails(selectedSeats);
 
         // Step 9: update the records in ShowSeatLockEntity
         LockSeatResDTO lockSeatResDTO = new LockSeatResDTO();
